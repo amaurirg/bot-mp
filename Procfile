@@ -1,0 +1,1 @@
+web: gunicorn bot_mp.wsgi --log-file -
