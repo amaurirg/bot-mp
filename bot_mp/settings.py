@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
-import os
+import os, requests, socket
 from decouple import config, Csv
 from dj_database_url import parse as dburl
 
@@ -18,6 +18,12 @@ from dj_database_url import parse as dburl
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+TOKEN = config('TOKEN')
+URL_WEBHOOK = "https://d7e6b892.ngrok.io/event/"
+URL_SET_WEBHOOK = "https://api.telegram.org/bot{}/setWebhook?url={}".format(TOKEN, URL_WEBHOOK)
+requests.get(URL_SET_WEBHOOK)
+
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
